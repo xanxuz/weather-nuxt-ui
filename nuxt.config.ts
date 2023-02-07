@@ -24,6 +24,18 @@ export default defineNuxtConfig({
         vuetify()
       ))
     },
+
+    // Pinia module
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          // automatically imports `defineStore` (import { defineStore, storeToRefs } from 'pinia')
+          'defineStore',
+          'storeToRefs'
+        ],
+      },
+    ],
   ],
 
   imports: {
@@ -48,7 +60,12 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
     ssr: {
-      noExternal: [ 'vuetify' ], // add the vuetify vite plugin
+      noExternal: [ 'vuetify' ],
     },
   },
+
+  runtimeConfig: {
+    // Public keys that are exposed to the client
+    apiKey: process.env.OPEN_WEATHER_API_KEY || '/api'
+  }
 })
